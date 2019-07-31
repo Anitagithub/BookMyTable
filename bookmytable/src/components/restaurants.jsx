@@ -1,27 +1,29 @@
 import React, { Component } from "react";
-import { getRestaurants } from "../dummyapi/restaurant";
+import { getRestaurants, getHeaders } from "../api/dump/restaurant";
 import RestaurantFilter from "./restaurantFilter";
-import RestaurantsDisplay from "./restautantsDisplay";
+import RestaurantsTable from "./restautantsTable";
 
 class Restaurants extends Component {
   state = {
-    data: []
+    data: [],
+    headers: []
   };
 
   componentDidMount() {
     let data = getRestaurants();
-    this.setState({ data });
+    let headers = getHeaders();
+    this.setState({ data, headers });
   }
 
   render() {
-    const { data } = this.state;
+    const { data, headers } = this.state;
     return (
       <div className="row">
         <div className="col-3">
           <RestaurantFilter />
         </div>
         <div className="col">
-          <RestaurantsDisplay data={data} />
+          <RestaurantsTable data={data} headers={headers} />
         </div>
       </div>
     );
